@@ -31,6 +31,7 @@ struct ContentView: View {
          let tipSelection = Double(tipPercentages[tipPercentage])
          let orderAmount = Double(checkAmount) ?? 0
          let tipValue = orderAmount / 100 * tipSelection
+        print(self.tipPercentage)
          return orderAmount + tipValue
     }
     var body: some View {
@@ -52,7 +53,7 @@ struct ContentView: View {
                 }
                 
                 Section(header: Text("Grand Total")) {
-                      Text("Grand Total: $\(grandTotal, specifier: "%.2f").")
+                    Text("Grand Total: $\(grandTotal, specifier: "%.2f").").foregroundColor(tipPercentage == TipOrder.zero.rawValue ? .red : .black)
                 }
             
                 Section(header: Text("Amount Per Person")) {
@@ -69,4 +70,11 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+enum TipOrder: Int {
+    case ten = 1
+    case fifteen = 2
+    case twentFive = 3
+    case zero = 4
 }
